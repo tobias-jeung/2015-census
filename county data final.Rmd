@@ -1,0 +1,182 @@
+---
+title: "county data final"
+output: html_document
+---
+
+```{r}
+acs2015_county_data <- read.csv("~/R projects/acs2015_county_data.csv")
+View(acs2015_county_data)
+
+```
+
+```{r}
+# separate california counties
+calcounty <- acs2015_county_data[c(187:244), c(1:37) ]
+```
+
+
+```{r}
+
+library(ggplot2)
+```
+
+```{r}
+# graph of men population size
+# stats
+ggplot(calcounty, aes(x= Men)) + geom_histogram()
+
+
+summary(calcounty$Men)
+
+# standard deviation and variance for Men population size
+sd(calcounty$Men)
+var(calcounty$Men)
+
+
+```
+
+
+```{r}
+# graph of women population size
+# stats
+ggplot(calcounty, aes(x= Women)) + geom_histogram()
+
+
+summary(calcounty$Women)
+
+# standard deviation and variance for women population size
+sd(calcounty$Women)
+var(calcounty$Women)
+
+```
+
+```{r}
+# graph of total pop and counties
+ggplot(calcounty, aes(x= TotalPop, y= County)) + geom_point()
+
+
+summary(calcounty$TotalPop)
+
+# standard deviation and variance for total population size
+sd(calcounty$TotalPop)
+var(calcounty$TotalPop)
+
+```
+
+
+```{r}
+# graph of minorities in counties, whites
+# stats
+ggplot(calcounty, aes(x= Hispanic, y= County)) + geom_point()
+ggplot(calcounty, aes(x= Black, y= County)) + geom_point()
+ggplot(calcounty, aes(x= Asian, y= County)) + geom_point()
+ggplot(calcounty, aes(x= White, y= County)) + geom_point()
+
+```
+
+
+```{r}
+# graph of poverty in counties
+# stats
+ggplot(calcounty, aes(x= Poverty, y= County)) + geom_point()
+
+summary(calcounty$Poverty)
+
+# standard deviation and variance for women population size
+sd(calcounty$Poverty)
+var(calcounty$Poverty)
+```
+
+```{r}
+# graph of income per capita in counties
+# stats
+ggplot(calcounty, aes(x= IncomePerCap, y= County)) + geom_point()
+summary(calcounty$IncomePerCap)
+
+# standard deviation and variance for women population size
+sd(calcounty$IncomePerCap)
+var(calcounty$IncomePerCap)
+
+```
+
+```{r}
+# graph of income in counties
+# stats
+ggplot(calcounty, aes(x= Income, y= County)) + geom_point()
+
+summary(calcounty$Income)
+
+# standard deviation and variance for women population size
+sd(calcounty$Income)
+var(calcounty$Income)
+```
+
+
+```{r}
+# graph of unemployment in counties
+# stats
+ggplot(calcounty, aes(x= Unemployment, y= County)) + geom_point()
+
+summary(calcounty$Unemployment)
+
+# standard deviation and variance for women population size
+sd(calcounty$Unemployment)
+var(calcounty$Unemployment)
+```
+
+
+
+
+```{r}
+# regression of income and poverty
+regPovertyIncome <- (lm(Poverty ~ Income, data = calcounty))
+summary(regPovertyIncome)
+
+```
+
+
+```{r}
+# plot
+ggplot(calcounty, aes(x= Poverty, y= Income)) + geom_point() + geom_smooth()
+```
+
+```{r}
+# density plot
+ggplot(calcounty, aes(x= Poverty)) + geom_density()
+ggplot(calcounty, aes(x= Income)) + geom_density()
+```
+
+```{r}
+# correlation
+cor(calcounty$Poverty, calcounty$Income)
+
+```
+
+
+
+```{r}
+# regression of IncomePerCapita and poverty
+regPovertyIncomePerCap <- (lm(Poverty ~ IncomePerCap, data = calcounty))
+summary(regPovertyIncomePerCap)
+
+```
+
+```{r}
+# plot
+ggplot(calcounty, aes(x= Poverty, y= IncomePerCap)) + geom_point() + geom_smooth()
+```
+
+```{r}
+# density plot
+ggplot(calcounty, aes(x= Poverty)) + geom_density()
+ggplot(calcounty, aes(x= IncomePerCap)) + geom_density()
+```
+
+```{r}
+# correlation
+cor(calcounty$Poverty, calcounty$IncomePerCap)
+
+```
+
+
+

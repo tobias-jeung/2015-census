@@ -1,0 +1,114 @@
+---
+title: "Regressions for county"
+output: html_document
+---
+
+```{r}
+acs2015_county_data <- read.csv("~/R projects/acs2015_county_data.csv")
+View(acs2015_county_data)
+
+```
+
+```{r}
+# separate california counties
+calcounty <- acs2015_county_data[c(187:244), c(1:37) ]
+```
+
+
+```{r}
+
+library(ggplot2)
+```
+
+
+```{r}
+# regression of poverty and unemployment 
+regPovertyUnemployment <- (lm(Poverty ~ Unemployment, data = calcounty))
+summary(regPovertyUnemployment)
+
+```
+
+
+```{r}
+# plot
+ggplot(calcounty, aes(x= Poverty, y= Unemployment)) + geom_point() + geom_smooth()
+```
+
+```{r}
+# density plot
+ggplot(calcounty, aes(x= Poverty)) + geom_density()
+ggplot(calcounty, aes(x= Unemployment)) + geom_density()
+```
+
+```{r}
+# correlation
+cor(calcounty$Poverty, calcounty$Unemployment)
+
+```
+
+
+```{r}
+# regression of child poverty and unemployment 
+regChildPovertyUnemployment <- (lm(ChildPoverty ~ Unemployment, data = calcounty))
+summary(regChildPovertyUnemployment)
+
+```
+
+
+```{r}
+# plot
+ggplot(calcounty, aes(x= ChildPoverty, y= Unemployment)) + geom_point() + geom_smooth()
+```
+
+```{r}
+# density plot
+ggplot(calcounty, aes(x= ChildPoverty)) + geom_density()
+ggplot(calcounty, aes(x= Unemployment)) + geom_density()
+```
+
+```{r}
+# correlation
+cor(calcounty$ChildPoverty, calcounty$Unemployment)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
